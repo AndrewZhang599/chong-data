@@ -53,7 +53,7 @@ def rate_by_quantile_no_subs_mult_choices(data,responses,nquants):
       total[i] = np.sum(qd[j].response == responses[i])
       # total[i,1] = len(qd[j].response == responses[i])
     out[j] = np.sum(total)/len(qd[0])
-    print(out[j])
+    # print(out[j])
   return out
 
 
@@ -70,8 +70,8 @@ def rate_by_quantile(data,response,nquants):
       qd = quantile_data(d,nquants)
       for j in range(nquants):
           out[i,j] = np.mean(qd[j].response==response)
-          print(out[i,j])
-  print(np.mean(out,axis = 0))
+          # print(out[i,j])
+  # print(np.mean(out,axis = 0))
   return np.mean(out,axis=0)
 
 def load_posterior_predictive(model, task = 0, coherence = 0, group = 0):
@@ -94,7 +94,7 @@ def err_plot(data,nquants, color = 'red'):
   """Plots the rate of high and low dimension errors in each quantile"""
   plt.plot(rate_by_quantile(data, 1, nquants) + rate_by_quantile(data,0, nquants) ,'-^', color = color)
   plt.plot(rate_by_quantile(data, 2, nquants) + rate_by_quantile(data,0, nquants),':v', color = color)
-  plt.ylim((0, .8))
+  plt.ylim((0, .3))
 
 def err_plot_mean(dataset_list, nquants, color):
   """Goes thru each dataset in thte list. Means the rate. Then plots the rate of high and low dimension errors in each quantile"""
@@ -105,7 +105,7 @@ def err_plot_mean(dataset_list, nquants, color):
     low_dim_err[d,:] = rate_by_quantile(dataset_list[d], 2, nquants) + rate_by_quantile(dataset_list[d],0, nquants) 
   plt.plot(np.mean(high_dim_err, axis = 0),'-^', color = color)
   plt.plot(np.mean(low_dim_err, axis = 0),':v', color = color)
-  plt.ylim((0, .8))
+  plt.ylim((0, .3))
   
 def err_plot_new(data,nquants):
   plt.plot(rate_by_quantile(data,1,nquants) + rate_by_quantile(data,0,nquants),'-o')
